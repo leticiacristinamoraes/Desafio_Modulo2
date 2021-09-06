@@ -20,6 +20,7 @@ public class Main {
             System.out.println("Digite 2 para visualizar a lista de funcionários.");
             System.out.println("Digite 3 para remover um funcionário cadastrado utilizando o CPF.");
             System.out.println("Digite 4 para sair do programa.");
+
             opcaoDesejada = leitor.nextInt();
             leitor.nextLine();
 
@@ -33,8 +34,20 @@ public class Main {
                     String email = leitor.nextLine();
                     System.out.println("Para finalizar o cadastro, digite o telefone do colaborador:");
                     String telefone = leitor.nextLine();
-                    System.out.println("Funcionário cadastrado com sucesso!");
-                    listaDeFuncionarios.put(cpf, "Nome do funcionário: " + nomeFuncionario + "\nEmail: " + email + "\nTelefone: " + telefone + "\n################");
+
+                    if (listaDeFuncionarios.size() != 0) {
+                        for (String validarCpf : listaDeFuncionarios.keySet()) {
+                            if (validarCpf.equals(cpf)) {
+                                System.out.println("O CPF informado já foi cadastrado. Por favor, verifique novamente.");
+                            } else {
+                                listaDeFuncionarios.put(cpf, "Nome do funcionário: " + nomeFuncionario + "\nEmail: " + email + "\nTelefone: " + telefone + "\n################");
+                                System.out.println("Funcionário cadastrado com sucesso!");
+                            }
+                        }
+                    } else {
+                        listaDeFuncionarios.put(cpf, "Nome do funcionário: " + nomeFuncionario + "\nEmail: " + email + "\nTelefone: " + telefone + "\n################");
+                        System.out.println("Funcionário cadastrado com sucesso!");
+                    }
                     break;
                 case 2:
                     for (String verificarLista : listaDeFuncionarios.keySet()) {
@@ -42,7 +55,7 @@ public class Main {
                     }
                     break;
                 case 3:
-                    System.out.println("Digite o CPF do fucnionário que deseja remover da lista:");
+                    System.out.println("Digite o CPF do funcionário que deseja remover da lista:");
                     String cpfDeletado = "";
                     String deletarCpf = leitor.nextLine();
 
@@ -50,11 +63,12 @@ public class Main {
                         if (verificarCpf.equals(deletarCpf)) {
                             System.out.println("A exclusão do cadastro foi realizada com sucesso!");
                             cpfDeletado = deletarCpf;
-                            listaDeFuncionarios.remove(cpfDeletado);
                         } else {
                             System.out.println("O CPF digitado não pode ser encontrado. Por favor, digite um CPF válido.");
                         }
                     }
+                    listaDeFuncionarios.remove(cpfDeletado);
+
                     break;
 
                 case 4:
@@ -62,8 +76,8 @@ public class Main {
                     System.out.println("Obrigada por utilizar nosso sistema.");
                     break;
                 default:
-                System.out.println("Digite uma opção válida!");
-                break;
+                    System.out.println("Digite uma opção válida!");
+                    break;
             }
 
         }
